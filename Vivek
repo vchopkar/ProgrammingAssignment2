@@ -1,7 +1,9 @@
+
 makeCacheMatrix <- function(x = matrix()) {
   m<-NULL
   set<-function(y){
   x<<-y
+  ##<<- operator is introduced  to assign a value to an object in an environment that is different from the current environment
   m<<-NULL
 }
 get<-function() x
@@ -11,7 +13,9 @@ list(set=set, get=get,
    setmatrix=setmatrix,
    getmatrix=getmatrix)
 }
-
+## cacheSolve function function first checks is the obtained matrix by getmatrix() is null
+##if it is null then then it solves and obtain the inverse matrix
+## if it is not then it solve using solve() function
 cacheSolve <- function(x=matrix(), ...) {
     m<-x$getmatrix()
     if(!is.null(m)){
@@ -19,7 +23,11 @@ cacheSolve <- function(x=matrix(), ...) {
       return(m)
     }
     mid<-x$get()
+##solve function is used to calculate inverse matrix
     m<-solve(mid, ...)
     x$setmatrix(m)
     m
 }
+
+##in the first attempt when we will run cacheSolve it will solve
+##in second attempt m will contain data hence "cached data" message will appear and output from stored cache will show
